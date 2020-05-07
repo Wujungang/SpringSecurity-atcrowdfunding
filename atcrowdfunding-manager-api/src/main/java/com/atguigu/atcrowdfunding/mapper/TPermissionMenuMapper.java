@@ -1,5 +1,6 @@
 package com.atguigu.atcrowdfunding.mapper;
 
+import com.atguigu.atcrowdfunding.bean.TPermissionMenu;
 import com.atguigu.atcrowdfunding.bean.TPermissionMenuExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -26,6 +27,9 @@ public interface TPermissionMenuMapper {
     int updateByPrimaryKeySelective(TPermissionMenu record);
 
     int updateByPrimaryKey(TPermissionMenu record);
-    
-    void insertBatch(@Param("mid") Integer mid, @Param("perIdArray") List<Integer> perIdArray);
+
+	List<Integer> listPermissionIdByMenuId(Integer menuId);
+
+	void saveMenuAndPermissionRelationship(@Param("menuId") Integer menuId, @Param("ids") List<Integer> ids);
+	//void saveRoleAndPermissionRelationship(@Param("roleId") Integer roleId,@Param("ids") List<Integer> ids);
 }

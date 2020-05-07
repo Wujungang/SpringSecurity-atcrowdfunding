@@ -1,5 +1,6 @@
 package com.atguigu.atcrowdfunding.mapper;
 
+import com.atguigu.atcrowdfunding.bean.TRole;
 import com.atguigu.atcrowdfunding.bean.TRoleExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -26,6 +27,8 @@ public interface TRoleMapper {
     int updateByPrimaryKeySelective(TRole record);
 
     int updateByPrimaryKey(TRole record);
+    
+    void deleteByListBatch(List<Integer> list);
 
 	List<TRole> listRoleByAdminId(Integer adminId);
 }

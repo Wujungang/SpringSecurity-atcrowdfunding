@@ -4,16 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.atguigu.atcrowdfunding.bean.TRole;
 import com.atguigu.atcrowdfunding.bean.TRoleExample;
 import com.atguigu.atcrowdfunding.bean.TRolePermissionExample;
-import com.atguigu.atcrowdfunding.mapper.TAdminRoleMapper;
-import com.atguigu.atcrowdfunding.mapper.TRoleMapper;
-import com.atguigu.atcrowdfunding.mapper.TRolePermissionMapper;
 import com.atguigu.atcrowdfunding.service.TRoleService;
 import com.github.pagehelper.PageInfo;
 

@@ -1,5 +1,6 @@
 package com.atguigu.atcrowdfunding.mapper;
 
+import com.atguigu.atcrowdfunding.bean.TType;
 import com.atguigu.atcrowdfunding.bean.TTypeExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;

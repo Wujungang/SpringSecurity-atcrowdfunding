@@ -4,12 +4,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.atguigu.atcrowdfunding.mapper.TAdminMapper;
+import com.atguigu.atcrowdfunding.mapper.TPermissionMapper;
+import com.atguigu.atcrowdfunding.mapper.TRoleMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,9 +21,6 @@ import com.atguigu.atcrowdfunding.bean.TAdmin;
 import com.atguigu.atcrowdfunding.bean.TAdminExample;
 import com.atguigu.atcrowdfunding.bean.TPermission;
 import com.atguigu.atcrowdfunding.bean.TRole;
-import com.atguigu.atcrowdfunding.mapper.TAdminMapper;
-import com.atguigu.atcrowdfunding.mapper.TPermissionMapper;
-import com.atguigu.atcrowdfunding.mapper.TRoleMapper;
 
 @Component
 public class SecurityUserDetailServiceImpl implements UserDetailsService {
@@ -37,13 +36,14 @@ public class SecurityUserDetailServiceImpl implements UserDetailsService {
 	
 	Logger log = LoggerFactory.getLogger(SecurityUserDetailServiceImpl.class);
 	
-	@Override
+//	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		//1.查询用户对象
 		TAdminExample example = new TAdminExample();
 		example.createCriteria().andLoginacctEqualTo(username);
+//		List<TAdmin> list = adminMapper.selectByExample(example);
 		List<TAdmin> list = adminMapper.selectByExample(example);
-		
+
 		if(list!=null &&  list.size()==1) {
 			TAdmin admin = list.get(0);
 			Integer adminId = admin.getId();
@@ -56,7 +56,7 @@ public class SecurityUserDetailServiceImpl implements UserDetailsService {
 			log.debug("用户角色集合:{}",roleList);
 			
 			//3.查询权限集合
-			List<TPermission> permissionList = permissionMapper.listPermissionByAdminId(adminId);		
+			List<TPermission> permissionList = permissionMapper.listpermissionByAdminId(adminId);
 			log.debug("用户权限集合:{}",permissionList);
 			
 			//4.构建用户所有权限集合=>(ROLE_角色+权限)

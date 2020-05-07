@@ -7,9 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.atguigu.atcrowdfunding.bean.TPermission;
 import com.atguigu.atcrowdfunding.bean.TPermissionMenuExample;
-import com.atguigu.atcrowdfunding.mapper.TPermissionMapper;
-import com.atguigu.atcrowdfunding.mapper.TPermissionMenuMapper;
-import com.atguigu.atcrowdfunding.mapper.TRolePermissionMapper;
 import com.atguigu.atcrowdfunding.service.TPermissionService;
 
 @Service

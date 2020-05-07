@@ -55,7 +55,7 @@ public class AtcrowdFundingSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.exceptionHandling().accessDeniedHandler(new AccessDeniedHandler() {
 
-			@Override
+//			@Override
 			public void handle(HttpServletRequest request, HttpServletResponse response,
 					AccessDeniedException accessDeniedException) throws IOException, ServletException {
 				//   X-Requested-With: XMLHttpRequest

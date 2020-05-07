@@ -1,5 +1,6 @@
 package com.atguigu.atcrowdfunding.mapper;
 
+import com.atguigu.atcrowdfunding.bean.TAdminRole;
 import com.atguigu.atcrowdfunding.bean.TAdminRoleExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -27,11 +28,7 @@ public interface TAdminRoleMapper {
 
     int updateByPrimaryKey(TAdminRole record);
     
-    
-
 	List<Integer> getRoleIdByAdminId(String id);
 
-	void saveAdminAndRoleRelationship(@Param("roleIds") Integer[] roleId, @Param("adminId") Integer adminId);
-
-	void deleteAdminAndRoleRelationship(@Param("roleIds") Integer[] roleId, @Param("adminId") Integer adminId);
+	void deleteAdminAndRoleRelationship(@Param("roleId") Integer[] roleId, @Param("adminId") Integer adminId);
 }

@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.atguigu.atcrowdfunding.bean.TMenu;
-import com.atguigu.atcrowdfunding.mapper.TMenuMapper;
 import com.atguigu.atcrowdfunding.service.TMenuService;
 
 @Service

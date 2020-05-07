@@ -1,5 +1,6 @@
 package com.atguigu.atcrowdfunding.mapper;
 
+import com.atguigu.atcrowdfunding.bean.TRolePermission;
 import com.atguigu.atcrowdfunding.bean.TRolePermissionExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -27,7 +28,7 @@ public interface TRolePermissionMapper {
 
     int updateByPrimaryKey(TRolePermission record);
 
-	void saveRoleAndPermissionRelationship(@Param("roleId") Integer roleId, @Param("permissionIds") List<Integer> ids);
+	void saveRoleAndPermissionRelationship(@Param("roleId") Integer roleId, @Param("ids") List<Integer> ids);
 
 	List<Integer> listPermissionIdByRoleId(Integer roleId);
 }

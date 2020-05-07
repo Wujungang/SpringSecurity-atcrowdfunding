@@ -1,5 +1,6 @@
 package com.atguigu.atcrowdfunding.mapper;
 
+import com.atguigu.atcrowdfunding.bean.TPermission;
 import com.atguigu.atcrowdfunding.bean.TPermissionExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -26,8 +27,6 @@ public interface TPermissionMapper {
     int updateByPrimaryKeySelective(TPermission record);
 
     int updateByPrimaryKey(TPermission record);
-    
-    List<TPermission> getPermissionByMenuid(Integer mid);
 
-	List<TPermission> listPermissionByAdminId(Integer adminId);
+	List<TPermission> listpermissionByAdminId(Integer adminId);
 }

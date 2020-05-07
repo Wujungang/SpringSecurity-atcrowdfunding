@@ -22,12 +22,6 @@
           <element id="archive" name="atcrowdfunding-manager-api-0.0.1-SNAPSHOT.jar">
             <element id="module-output" name="atcrowdfunding-manager-api" />
           </element>
-          <element id="archive" name="atcrowdfunding-bean-0.0.1-SNAPSHOT.jar">
-            <element id="module-output" name="atcrowdfunding-bean" />
-          </element>
-          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.7.4" />
-          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.7.4" />
-          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.7.0" />
           <element id="archive" name="atcrowdfunding-common-0.0.1-SNAPSHOT.jar">
             <element id="module-output" name="atcrowdfunding-common" />
           </element>
@@ -43,6 +37,12 @@
           <element id="library" level="project" name="Maven: javax.activation:activation:1.1.1" />
           <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.7.25" />
           <element id="library" level="project" name="Maven: org.slf4j:jul-to-slf4j:1.7.25" />
+          <element id="archive" name="atcrowdfunding-bean-0.0.1-SNAPSHOT.jar">
+            <element id="module-output" name="atcrowdfunding-bean" />
+          </element>
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.7.4" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.7.4" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.7.0" />
           <element id="library" level="project" name="Maven: joda-time:joda-time:2.9.9" />
           <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.5.3" />
           <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.4.6" />
