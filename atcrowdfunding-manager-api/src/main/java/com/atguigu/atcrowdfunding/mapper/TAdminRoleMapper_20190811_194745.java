@@ -1,6 +1,5 @@
 package com.atguigu.atcrowdfunding.mapper;
 
-import com.atguigu.atcrowdfunding.bean.TAdminRole;
 import com.atguigu.atcrowdfunding.bean.TAdminRoleExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;

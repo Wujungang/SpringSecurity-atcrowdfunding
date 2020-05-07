@@ -16,12 +16,8 @@
         <option value="$PROJECT_DIR$/atcrowdfundingcommon/pom.xml" />
         <option value="$PROJECT_DIR$/atcrowdfundingbean/pom.xml" />
         <option value="$PROJECT_DIR$/atcrowdfunding-parent/pom.xml" />
-      </list>
-    </option>
-    <option name="ignoredFiles">
-      <set>
         <option value="$PROJECT_DIR$/atcrowdfunding-manager-impl/pom.xml" />
-      </set>
+      </list>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="1.8" project-jdk-type="JavaSDK" />

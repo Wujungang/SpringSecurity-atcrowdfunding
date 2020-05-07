@@ -1,6 +1,5 @@
 package com.atguigu.atcrowdfunding.mapper;
 
-import com.atguigu.atcrowdfunding.bean.TRolePermission;
 import com.atguigu.atcrowdfunding.bean.TRolePermissionExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;

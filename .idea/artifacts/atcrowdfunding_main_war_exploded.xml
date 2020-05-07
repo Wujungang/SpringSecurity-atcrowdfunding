@@ -16,6 +16,9 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-web:4.3.8.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-webmvc-portlet:4.3.8.RELEASE" />
           <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
+          <element id="archive" name="atcrowdfunding-manager-impl-0.0.1-SNAPSHOT.jar">
+            <element id="module-output" name="atcrowdfunding-manager-impl" />
+          </element>
           <element id="archive" name="atcrowdfunding-manager-api-0.0.1-SNAPSHOT.jar">
             <element id="module-output" name="atcrowdfunding-manager-api" />
           </element>

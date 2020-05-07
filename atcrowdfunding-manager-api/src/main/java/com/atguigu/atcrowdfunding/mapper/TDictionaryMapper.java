@@ -1,6 +1,5 @@
 package com.atguigu.atcrowdfunding.mapper;
 
-import com.atguigu.atcrowdfunding.bean.TDictionary;
 import com.atguigu.atcrowdfunding.bean.TDictionaryExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;

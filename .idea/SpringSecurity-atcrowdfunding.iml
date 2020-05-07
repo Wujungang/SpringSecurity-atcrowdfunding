@@ -12,5 +12,6 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:4.3.8.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:4.3.8.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.6" level="project" />
+    <orderEntry type="module" module-name="atcrowdfunding-bean" />
   </component>
 </module>
