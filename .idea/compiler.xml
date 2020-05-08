@@ -16,7 +16,7 @@
     <bytecodeTargetLevel>
       <module name="atcrowdfunding-bean" target="1.5" />
       <module name="atcrowdfunding-common" target="1.5" />
-      <module name="atcrowdfunding-main" target="1.5" />
+      <module name="atcrowdfunding-main" target="6" />
       <module name="atcrowdfunding-manager-api" target="1.5" />
       <module name="atcrowdfunding-manager-impl" target="6" />
       <module name="atcrowdfunding-parent" target="1.5" />

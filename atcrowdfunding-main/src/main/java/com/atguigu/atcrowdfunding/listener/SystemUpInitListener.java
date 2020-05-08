@@ -20,13 +20,13 @@ public class SystemUpInitListener implements ServletContextListener {
 	Logger log = LoggerFactory.getLogger(SystemUpInitListener.class);
 
 	// 当application销毁时执行销毁方法。
-//	@Override
+	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
 		log.debug("当前应用application对象被销毁");
 	}
 
 	// 当application创建时执行初始化方法
-//	@Override
+	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		ServletContext application = sce.getServletContext();
 		String contextPath = application.getContextPath();

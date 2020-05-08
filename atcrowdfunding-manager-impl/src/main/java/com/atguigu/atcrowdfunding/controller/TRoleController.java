@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,7 +60,7 @@ public class TRoleController {
 		return page;
 	}
 	
-	@PreAuthorize("hasRole('程序员')")
+//	@PreAuthorize("hasRole('程序员')")
 	@ResponseBody
 	@RequestMapping("/role/doAdd")
 	public String doAdd(TRole role) {
@@ -84,7 +84,7 @@ public class TRoleController {
 	@ResponseBody
 	@RequestMapping("/role/doDelete")
 	public String doDelete(String id) {
-		roleService.deleteById(id);
+//		roleService.deleteById(id);
 		return "ok";
 	}
 	
@@ -98,8 +98,8 @@ public class TRoleController {
 			int id = Integer.parseInt(string);
 			list.add(id);
 		}
-		roleService.deleteBatch(list);
-		HashMap<Object, Object> map = new HashMap<>();
+//		roleService.deleteBatch(list);
+//		HashMap<Object, Object> map = new HashMap<>();
 //		map.put("status", "ok");
 //		map.put("pageNum", pageNum);
 		return "ok";
