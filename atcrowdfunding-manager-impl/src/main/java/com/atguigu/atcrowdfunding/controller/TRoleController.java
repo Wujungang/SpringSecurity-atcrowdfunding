@@ -1,8 +1,10 @@
 package com.atguigu.atcrowdfunding.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,18 +17,102 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.atguigu.atcrowdfunding.bean.TRole;
 import com.atguigu.atcrowdfunding.service.TRoleService;
+import com.atguigu.atcrowdfunding.util.Const;
 import com.atguigu.atcrowdfunding.util.Datas;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 @Controller
 public class TRoleController {
-
+	
+	Logger log = LoggerFactory.getLogger(TAdminController.class);
+	
 	@Autowired
-	TRoleService roleService ;
+	TRoleService roleService;
 	
-	Logger log = LoggerFactory.getLogger(TRoleController.class);
+	@RequestMapping("/role/index")
+	public String index(HttpSession session) {
+		log.error("loginSession--{}",session);
+		Object loginname =session.getAttribute(Const.LOGIN_ADMIN);
+//		log.error("loginname--{}",loginname);
+//		if (loginname != "zhangsan") {
+//			return "index";
+//		}
+		return "role/index";
+	}
 	
+	
+
+
+	@ResponseBody
+	@RequestMapping("/role/loadData")
+	public PageInfo<TRole> loadData(@RequestParam(value="pageNum",required = false,defaultValue = "1") Integer pageNum,
+									@RequestParam(value="pageSize",required = false,defaultValue = "2") Integer pageSize,
+									@RequestParam(value="condition",required = false,defaultValue = "") String condition){
+		PageHelper.startPage(pageNum,pageSize);
+		
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		
+		paramMap.put("condition", condition);
+		
+		PageInfo<TRole> page = roleService.listRolePage(paramMap);
+		
+		return page;
+	}
+	
+	@PreAuthorize("hasRole('程序员')")
+	@ResponseBody
+	@RequestMapping("/role/doAdd")
+	public String doAdd(TRole role) {
+		roleService.saveTRole(role);
+		return "ok";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/role/getRoleById")
+	public TRole getRoleById(Integer id) {
+		return roleService.getRoleById(id);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/role/doUpdate")
+	public String doUpdate(TRole role) {
+		roleService.updateTRole(role);
+		return "ok";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/role/doDelete")
+	public String doDelete(String id) {
+		roleService.deleteById(id);
+		return "ok";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/role/doDeleteBatch")
+	public String doDeleteBatch(String ids,Integer pageNum) {
+		List<Integer> list = new ArrayList<Integer>();
+		log.error(ids);
+		String[] idsList = ids.split(",");
+		for (String string : idsList) {
+			int id = Integer.parseInt(string);
+			list.add(id);
+		}
+		roleService.deleteBatch(list);
+		HashMap<Object, Object> map = new HashMap<>();
+//		map.put("status", "ok");
+//		map.put("pageNum", pageNum);
+		return "ok";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/role/doAssignPermissionToRole")
+	public String doAssignPermissionToRole(Integer roleId,Datas ds) {
+		log.debug("roleId={}",roleId);
+		log.debug("permissionIds={}",ds.getIds());
+		roleService.saveRoleAndPermissionRelationship(roleId,ds.getIds());
+		return "ok";
+	}
 	
 	@ResponseBody
 	@RequestMapping("/role/listPermissionIdByRoleId")
@@ -39,79 +125,6 @@ public class TRoleController {
 		return list;
 	}
 	
-	@ResponseBody
-	@RequestMapping("/role/doAssignPermissionToRole")
-	public String doAssignPermissionToRole(Integer roleId, Datas ds) {
 	
-		log.debug("roleId={}",roleId);
-		log.debug("permissionIds={}",ds.getIds());
-		
-		roleService.saveRoleAndPermissionRelationship(roleId,ds.getIds());
-		
-		return "ok";
-	}
-	
-	@ResponseBody
-	@RequestMapping("/role/doDelete")
-	public String doDelete(Integer id) {
-		roleService.deleteTRole(id);
-		return "ok";
-	}
-	
-	@ResponseBody
-	@RequestMapping("/role/doUpdate")
-	public String doUpdate(TRole role) {
-		roleService.updateTRole(role);
-		return "ok";
-	}
-	
-	
-	@ResponseBody
-	@RequestMapping("/role/getRoleById")
-	public TRole getRoleById(Integer id) {
-		return roleService.getRoleById(id);
-	}
-	
-	@PreAuthorize("hasRole('PM - 项目经理')")
-	@ResponseBody
-	@RequestMapping("/role/doAdd")
-	public String doAdd(TRole role) {
-		roleService.saveTRole(role);
-		return "ok";
-	}
-	
-	
-	@RequestMapping("/role/index")
-	public String index() {
-		
-		return "role/index";
-	}
-	
-	/**
-	 * 启用消息转换器：HttpMessageConverter
-	 * 
-	 * 如果返回结果为对象（Entity Class,List,Map..）类型：启用这个转换器->MappingJackson2HttpMessageConverter 将对象序列化为json串，使用Jackson组件转换
-	 * 如果返回结果为String类型：启用这个转换器->StringHttpMessageConverter  将字符串原样输出。
-	 * 
-	 * @param pageNum
-	 * @param pageSize
-	 * @return
-	 */
-	@ResponseBody
-	@RequestMapping("/role/loadData")
-	public PageInfo<TRole> loadData(@RequestParam(value="pageNum",required=false,defaultValue="1") Integer pageNum,
-								    @RequestParam(value="pageSize",required=false,defaultValue="2") Integer pageSize,
-								    @RequestParam(value="condition",required=false,defaultValue="")  String condition) {
-		
-		PageHelper.startPage(pageNum, pageSize);
-		
-		Map<String,Object> paramMap = new HashMap<String,Object>();
-		
-		paramMap.put("condition",condition);
-		
-		PageInfo<TRole> page = roleService.listRolePage(paramMap) ;		
-		
-		return page;//转换为json串返回
-	}
 	
 }

@@ -4,6 +4,7 @@ import com.atguigu.atcrowdfunding.bean.TMenu;
 
 import java.util.List;
 
+
 public interface TMenuService {
 
 	List<TMenu> listMenuAll(); //组合父子关系
@@ -22,4 +23,12 @@ public interface TMenuService {
 
 
 	void deleteTMenu(Integer id);
+
+    TMenu selectMenuById(String id);
+
+	void deleteMenuById(Integer id);
+
+	List<Integer> listPermissionIdByMenuId(Integer menuId);
+
+	void saveMenuAndPermissionRelationship(Integer menuId, List<Integer> ids);
 }

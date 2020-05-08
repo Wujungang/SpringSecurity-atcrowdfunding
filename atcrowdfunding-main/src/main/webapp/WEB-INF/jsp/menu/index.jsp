@@ -10,7 +10,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <%@ include file="/WEB-INF/jsp/common/css.jsp" %>
+	<%@ include file="/WEB-INF/jsp/common/css.jsp" %>
+	<link rel="stylesheet" href="https://layui.hcwl520.com.cn/layui-v2.5.4/css/layui.css" media="all">
+	
 	<style>
 	.tree li {
         list-style-type: none;
@@ -23,9 +25,10 @@
 
   <body>
 
-    <jsp:include page="/WEB-INF/jsp/common/top.jsp"></jsp:include>
+ 
+	<jsp:include page="/WEB-INF/jsp/common/top.jsp"></jsp:include>
 
-    <div class="container-fluid">
+     <div class="container-fluid">
       <div class="row">
         <jsp:include page="/WEB-INF/jsp/common/sidebar.jsp"></jsp:include>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -40,8 +43,9 @@
         </div>
       </div>
     </div>
-    
-    
+
+
+
 <!-- 添加数据 模态框 -->
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -109,8 +113,8 @@
 </div>
 
 
-
-<div class="modal fade" id="permissionModal" tabindex="-1" role="dialog" aria-labelledby="Modal">
+<!-- 修改数据 模态框 -->
+<div class="modal fade" id="assignModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -118,20 +122,26 @@
         <h4 class="modal-title" id="myModalLabel">给菜单分配权限</h4>
       </div>
       <div class="modal-body">
- 			<ul id="assignPermissionTree" class="ztree"></ul>
+		  <ul id="treeDemo1" class="ztree"></ul>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button id="assignPermission" type="button" class="btn btn-primary">分配</button>
+        <button id="assignBtn" type="button" class="btn btn-primary">分配</button>
       </div>
     </div>
   </div>
-</div> 
+</div>
 
 
+       <%@ include file="/WEB-INF/jsp/common/js.jsp" %>
+      
+       
 
-    <%@ include file="/WEB-INF/jsp/common/js.jsp" %>
-        <script type="text/javascript">
+       
+
+       <script type="text/javascript">
+       
+       	
             $(function () {
 			    $(".list-group-item").click(function(){
 				    if ( $(this).find("ul") ) {
@@ -142,122 +152,125 @@
 							$("ul", this).show("fast");
 						}
 					}
-				});
-			    
+			    });
 			    initTree();
-            });
+				});
+            
+           function initTree(){
+        	   var setting = {
+        				data: {
+        					simpleData: {
+        						enable: true,
+        						pIdKey: "pid"
+        					}
 
-            
-            
-            function initTree(){
-                var setting = {
-                		data: {
-            				simpleData: {
-            					enable: true,
-            					pIdKey: "pid"
-            				}
-            			},
-            			view:{
-            				addDiyDom: function(treeId, treeNode){
+        				},
+        				view:{
+        					addDiyDom: function(treeId, treeNode){//设置节点后面显示一个按钮
             					$("#"+treeNode.tId+"_ico").removeClass();//.addClass();
             					$("#"+treeNode.tId+"_span").before("<span class='"+treeNode.icon+"'></span>")
 
     						},
-    						addHoverDom: function(treeId, treeNode){   //treeNode节点 -> TMenu对象
+    						addHoverDom: function(treeId, treeNode){   //treeNode节点 -> TMenu对象设置鼠标移到节点上，在后面显示一个按钮
     							var aObj = $("#" + treeNode.tId + "_a");
     							aObj.attr("href", "javascript:;");
     							if (treeNode.editNameFlag || $("#btnGroup"+treeNode.tId).length>0) return;
     							var s = '<span id="btnGroup'+treeNode.tId+'">';
     							if ( treeNode.level == 0 ) { //根节点
+    								
     								s += '<a class="btn btn-info dropdown-toggle btn-xs" style="margin-left:10px;padding-top:0px;" onclick="addBtn('+treeNode.id+')">&nbsp;&nbsp;<i class="fa fa-fw fa-plus rbg "></i></a>';
+    								s += '<a class="assignPermissionClass btn btn-info dropdown-toggle btn-xs" style="margin-left:10px;padding-top:0px;" onclick="assignPer('+treeNode.id+')" >&nbsp;&nbsp;<i class="	fa fa-plus-square fa-plus rbg "></i></a>';
+
     							} else if ( treeNode.level == 1 ) { //分支节点
     								s += '<a class="btn btn-info dropdown-toggle btn-xs" style="margin-left:10px;padding-top:0px;"  onclick="updateBtn('+treeNode.id+')" title="修改权限信息">&nbsp;&nbsp;<i class="fa fa-fw fa-edit rbg "></i></a>';
+    								s += '<a class="assignPermissionClass btn btn-info dropdown-toggle btn-xs" style="margin-left:10px;padding-top:0px;" onclick="assignPer('+treeNode.id+')" >&nbsp;&nbsp;<i class="	fa fa-plus-square fa-plus rbg "></i></a>';
+
     								if (treeNode.children.length == 0) {
     									s += '<a class="btn btn-info dropdown-toggle btn-xs" style="margin-left:10px;padding-top:0px;" onclick="deleteBtn('+treeNode.id+')" >&nbsp;&nbsp;<i class="fa fa-fw fa-times rbg "></i></a>';
+
     								}
+
     								s += '<a class="btn btn-info dropdown-toggle btn-xs" style="margin-left:10px;padding-top:0px;" onclick="addBtn('+treeNode.id+')">&nbsp;&nbsp;<i class="fa fa-fw fa-plus rbg "></i></a>';
-    								s += '<a class="btn btn-info dropdown-toggle btn-xs" style="margin-left:10px;padding-top:0px;" onclick="assignBtn('+treeNode.id+')">&nbsp;&nbsp;<i class="fa fa-fw fa-anchor rbg "></i></a>';
     							} else if ( treeNode.level == 2 ) { //叶子节点
+    								s += '<a class="assignPermissionClass btn btn-info dropdown-toggle btn-xs" style="margin-left:10px;padding-top:0px;" onclick="assignPer('+treeNode.id+')" >&nbsp;&nbsp;<i class="	fa fa-plus-square fa-plus rbg "></i></a>';
+
     								s += '<a class="btn btn-info dropdown-toggle btn-xs" style="margin-left:10px;padding-top:0px;"  onclick="updateBtn('+treeNode.id+')" title="修改权限信息">&nbsp;&nbsp;<i class="fa fa-fw fa-edit rbg "></i></a>';
     								s += '<a class="btn btn-info dropdown-toggle btn-xs" style="margin-left:10px;padding-top:0px;" onclick="deleteBtn('+treeNode.id+')" >&nbsp;&nbsp;<i class="fa fa-fw fa-times rbg "></i></a>';
-    								s += '<a class="btn btn-info dropdown-toggle btn-xs" style="margin-left:10px;padding-top:0px;" onclick="assignBtn('+treeNode.id+')">&nbsp;&nbsp;<i class="fa fa-fw fa-anchor rbg "></i></a>';
     							}
     			
     							s += '</span>';
     							aObj.after(s);
     						},
+    						
     						removeHoverDom: function(treeId, treeNode){
     							$("#btnGroup"+treeNode.tId).remove();
     						}
-            			}
-                };
-
-                
-                var url = "${PATH}/menu/loadTree";
-                var json = {} ;
-                $.get(url,json,function(result){ // List<TMenu> -> JSON  -> 简单格式json数据
-                	var zNodes = result;
-                	zNodes.push({id:0,name:"系统菜单",icon:"glyphicon glyphicon-th-list"});
-             		$.fn.zTree.init($("#treeDemo"), setting, zNodes);
-             		
-             		var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
-             		treeObj.expandAll(true);
-                });
-                
-               
-            }
-            
-
-    		
-            //=======添加 开始=====================================================
-            function addBtn(id){
-            	$("#addModal").modal({
-            		show:true,
-            		backdrop:'static',
-            		keyboard:false
-            	});
-            	$("#addModal input[name='pid']").val(id);
-            }
-            
-            $("#saveBtn").click(function(){
-            	var pid = $("#addModal input[name='pid']").val();
-            	var name = $("#addModal input[name='name']").val();
-            	var url = $("#addModal input[name='url']").val();
-            	var icon = $("#addModal input[name='icon']").val();
-            	
-        		$.ajax({
-        			type:"post",
-        			url:"${PATH}/menu/doAdd",
-        			data:{
-        				pid:pid,
-        				name:name,
-        				url:url,
-        				icon:icon
-        			},
-        			beforeSend:function(){
-        				return true ;
-        			},
-        			success:function(result){
-        				if("ok"==result){
-        					layer.msg("保存成功",{time:1000},function(){
-        						$("#addModal").modal('hide');
-        						$("#addModal input[name='pid']").val("");
-        						$("#addModal input[name='name']").val("");
-        						$("#addModal input[name='url']").val("");
-        						$("#addModal input[name='icon']").val("");
-        						initTree();
-        					});
-        				}else{
-        					layer.msg("保存失败");
         				}
-        			}
-        		});
-            });
-            //=======添加 结束=====================================================
-            	
-            	
-            	
-            //=======修改 开始=====================================================
+        			};
+
+        	   var url = "${PATH}/menu/loadTree";
+        	   
+               var json = {} ;
+               $.get(url,json,function(result){ // List<TMenu> -> JSON  -> 简单格式json数据
+            	   
+               	var zNodes = result;
+               
+               	zNodes.push({id:0,name:"系统菜单",icon:"glyphicon glyphicon-th-list"});
+               	
+            		$.fn.zTree.init($("#treeDemo"), setting, zNodes);	
+            		
+            		var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+            		
+            		treeObj.expandAll(true);
+               });
+           }
+           //========================添加开始
+           function addBtn(id){
+        	   $("#addModal").modal({
+        		   show:true,
+        		   backdrop:"static",
+        		   keyboard:false
+        	   });
+        	   $("#addModal input[name='pid']").val(id);
+           }
+
+           $("#saveBtn").click(function(){
+           	var pid = $("#addModal input[name='pid']").val();
+           	var name = $("#addModal input[name='name']").val();
+           	var url = $("#addModal input[name='url']").val();
+           	var icon = $("#addModal input[name='icon']").val();
+           	
+       		$.ajax({
+       			type:"post",
+       			url:"${PATH}/menu/doAdd",
+       			data:{
+       				pid:pid,
+       				name:name,
+       				url:url,
+       				icon:icon
+       			},
+       			beforeSend:function(){
+       				return true ;
+       			},
+       			success:function(result){
+       				if("ok"==result){
+       					layer.msg("保存成功",{time:1000},function(){
+       						$("#addModal").modal('hide');
+       						$("#addModal input[name='pid']").val("");
+       						$("#addModal input[name='name']").val("");
+       						$("#addModal input[name='url']").val("");
+       						$("#addModal input[name='icon']").val("");
+       						initTree();
+       					});
+       				}else{
+       					layer.msg("保存失败");
+       				}
+       			}
+       		});
+          });
+           //=======添加 结束=====================================================	
+        	   
+       	   //=======修改 开始=====================================================
             function updateBtn(id){
             	$.get("${PATH}/menu/getMenuById",{id:id},function(result){
         			console.log(result);
@@ -308,8 +321,7 @@
             });
             
             //=======修改 结束=====================================================
-            	
-            	
+       
             	
             //=======删除 开始=====================================================
             function deleteBtn(id){
@@ -329,102 +341,118 @@
         		});
             }
             //=======删除 结束=====================================================
-            
-            
-            
-            
-            
-            
-           //------给菜单分配许可----------------------------------------------------------------------------------          
-			var tempMenuid = '';
-			function assignBtn(menuid) {
-				tempMenuid = menuid;
-				//1.初始化权限树，带复选框
-				initPermissioinToMenuTree();
-				//2.显示模态框，展示权限树
-				$("#permissionModal").modal({
-					show : true,
-					backdrop : "static"
-				});
-				//3.回显权限树（之前分配过的权限应该被勾选）
-				//showMenuPermissions(menuid);
-			}
-			function initPermissioinToMenuTree() {
-				var setting = {
-					data : {
-						simpleData : {
-							enable : true,
-							pIdKey : "pid"
-						},
-						key : {
-							url : "xUrl",
-							name : "title"
-						}
-					},
-					check : {
-						enable : true
-					},
-					view : {
-						addDiyDom : addDiyDom
-					}
-				};
-				//1.加载数据
-				$.get("${PATH}/permission/listAllPermissionTree",function(data) {
-						//data.push({"id":0,"title":"系统权限","icon":"glyphicon glyphicon-asterisk"});
-						var tree = $.fn.zTree.init($("#assignPermissionTree"),setting,data);
-						var treeObj = $.fn.zTree.getZTreeObj("assignPermissionTree");
-						treeObj.expandAll(true);
-						
-						showMenuPermissions(tempMenuid);
-				});
-			}
-			function addDiyDom(treeId, treeNode) {
-				$("#" + treeNode.tId + "_ico").removeClass();
-				$("#" + treeNode.tId + "_span").before('<span class="'+treeNode.icon+'"></span>');
-			}
-			
-			
-			
-			//分配权限功能
-			$("#assignPermission").click(function(){
-				//1、获取到已经选中的所有权限的id
-				var treeObj = $.fn.zTree.getZTreeObj("assignPermissionTree");
-				var ids = new Array();
-				$.each(treeObj.getCheckedNodes(true),function(){
-					ids.push(this.id);
-				});
-				var idsStr = ids.join();
-					 
-				//2、组装给后台提交的数据
-				var data = {mid:tempMenuid,perIds:idsStr};
-				console.log(data);
-				//3、发请求，完成权限分配功能
-				$.post("${PATH}/menu/assignPermissionToMenu",data,function(){
-					layer.msg("权限分配完成...")
-					$("#permissionModal").modal('hide');
-				})
-			});
-
-			
-			//回显权限树
-			function showMenuPermissions(menuid){
-				$.get("${PATH}/menu/menu_permission?menuid="+menuid,function(data){
-					//1、遍历每一个权限，在ztree中选中对应的节点
-					$.each(data,function(){
-						console.log(this);
-						var treeObj = $.fn.zTree.getZTreeObj("assignPermissionTree");
-						var node = treeObj.getNodeByParam("id", this.id, null); //根据指定的节点id搜索节点，null表示搜索整个树
-						treeObj.checkNode(node,true,false);//需要回显的节点，是否勾选复选框，父子节点勾选是否联动（例如：勾选父节点，要不要把它的所有子节点都勾上，取消父节点勾选，要不要把它的所有子节点也都取消勾选）
-					});
-				});
-			} 
-            
-            
-            
-            
-            
+            	
+            var menuId = '';	
+   	
+		    
+		    function assignPer(id){
+		    	$("#assignModal").modal({
+		   			show:true,
+		   			backdrop:'static',
+		   			keyboard:false
+		   		});
+		   		
+		   		//menuId = id;
+		   		initPerTree(id);
+		   		
+            }
+		    
+			function initPerTree(id){
+				menuId=id;
+        		
+        		var setting = {
+        				check: {
+        					enable: true
+        				},
+        				data: {
+        					simpleData: {
+        						enable: true,
+        						pIdKey: "pid"
+        					},
+        					key: {
+        						url: "xxx",
+        						name:"title"
+        					}
+        				},
+        				view: {
+        					addDiyDom: function(treeId,treeNode){
+        						$("#"+treeNode.tId+"_ico").removeClass();
+        						$("#"+treeNode.tId+"_span").before('<span class="'+treeNode.icon+'"></span>');
+        					}
+        				}
+        		};
+        		
+        		
+        		//多个异步请求，执行先后顺序问题。
+        		
+        		//1.加载数据
+        		$.get("${PATH}/permission/loadTree",function(data){			
+        			//data.push({"id":0,"title":"系统权限","icon":"glyphicon glyphicon-asterisk"});
+        			
+        			var treeObj = $.fn.zTree.init($("#treeDemo1"), setting, data);
+        			//var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+        			treeObj.expandAll(true);
+        			
+        			//2.回显已分配许可
+        			
+            		$.get("${PATH}/menu/listPermissionIdByMenuId",{menuId:id},function(data){
+            			$.each(data,function(i,e){
+            				var permissionId = e ;
+            				var treeObj = $.fn.zTree.getZTreeObj("treeDemo1");
+            				var node = treeObj.getNodeByParam("id", permissionId, null);
+            				treeObj.checkNode(node, true, false , false);
+            			});
+            		}); 
+        			
+        		}); 
+        	}
+        	
+            	
+            $("#assignBtn").click(function(){
+        		
+        		var json = {
+        				menuId:menuId
+        		}
+        		
+        		console.log(menuId);
+        		var treeObj = $.fn.zTree.getZTreeObj("treeDemo1");
+        		var nodes = treeObj.getCheckedNodes(true);
+        		$.each(nodes,function(i,e){
+        			var permissionId = e.id ;
+        			console.log("111");
+        			
+        			json['ids['+i+']'] = permissionId;
+        			
+        			//多条数据提交和接收
+        			//json['userList[i].name'] = 'xxx';
+        			//json['userList[i].age'] = 23;
+        		});
+        		
+        		
+        		
+        		$.ajax({
+        			type:"post",
+        			url:"${PATH}/menu/doAssignPermissionToMenu",
+        			data:json,
+//         			processData: false,   // jQuery不要去处理发送的数据
+//         			contentType: false, 
+        			success:function(result){
+        				if("ok"==result){
+        					layer.msg("分配成功",{time:1000},function(){
+        						$("#assignModal").modal('hide');
+        					});
+        				}else{
+        					layer.msg("分配失败");
+        				}
+        			}
+        		});
+        		
+        	});
+        		
+        	//===给角色分配权限 结束==============================================================	
             
         </script>
+        
+       
   </body>
 </html>
-    

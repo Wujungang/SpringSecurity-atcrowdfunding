@@ -1,10 +1,6 @@
 package com.atguigu.atcrowdfunding.controller;
 
-import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
-import com.atguigu.atcrowdfunding.bean.TMenu;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,30 +34,30 @@ public class DispatcherController {
 	}
 
 
-	@RequestMapping("/main")
-	public String main(HttpSession session) {
-		log.debug("跳转到后台系统main页面...");
-
-		if(session==null) {
-			return "redirect:/toLogin";
-		}
-		//存放父菜单
-		List<TMenu> menuList = (List<TMenu>)session.getAttribute("menuList") ;
-
-		log.debug("menuList={}",menuList);
-
-		if(menuList==null) {
-
-			log.debug("menuList=null ===》》》》查询侧边栏 菜单树");
-
-			menuList = menuService.listMenuAll();
-//			List<TMenu> tMenus = menuService.listMenuAll();
-			session.setAttribute("menuList", menuList);
-		}
-
-
-		return "main";
-	}
+//	@RequestMapping("/main")
+//	public String main(HttpSession session) {
+//		log.debug("跳转到后台系统main页面...");
+//
+//		if(session==null) {
+//			return "redirect:/toLogin";
+//		}
+//		//存放父菜单
+//		List<TMenu> menuList = (List<TMenu>)session.getAttribute("menuList") ;
+//
+//		log.debug("menuList={}",menuList);
+//
+//		if(menuList==null) {
+//
+//			log.debug("menuList=null ===》》》》查询侧边栏 菜单树");
+//
+//			menuList = menuService.listMenuAll();
+////			List<TMenu> tMenus = menuService.listMenuAll();
+//			session.setAttribute("menuList", menuList);
+//		}
+//
+//
+//		return "main";
+//	}
 
 //	@RequestMapping("/logout")
 //	public String logout(HttpSession session) {

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
@@ -11,8 +10,7 @@
     <meta name="description" content="">
     <meta name="keys" content="">
     <meta name="author" content="">
-<%@ include file="/WEB-INF/jsp/common/css.jsp" %>
-<link rel="stylesheet" href="${PATH}/static/css/login.css">
+	<%@ include file="/WEB-INF/jsp/common/css.jsp" %>
 	<style>
 
 	</style>
@@ -26,29 +24,34 @@
       </div>
     </nav>
 
-    <div class="container">
+    <div class="container ">
 
-      <form id="loginForm" class="form-signin" role="form" action="${PATH}/login" method="post">
+      <form id="loginForm" class="form-signin" role="form" action="${PATH }/login" method="post">
         <h2 class="form-signin-heading"><i class="glyphicon glyphicon-log-in"></i> 用户登录</h2>
-        
-          <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
-	       	  <div class="form-group has-success has-feedback">
-					${SPRING_SECURITY_LAST_EXCEPTION.message}
+	       	<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
+	       	  <div class="form-group has-success has-feedback" >
+					${SPRING_SECURITY_LAST_EXCEPTION.message }
 			  </div> 
 		  </c:if>
-        
-		  <div class="form-group has-success has-feedback">  <%--value="${param.loginacct }" --%>
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-			<input type="text" class="form-control" id="loginacct" name="loginacct" value="superadmin" placeholder="请输入登录账号" autofocus>
+		  <div class="form-group has-success has-feedback">
+			<input type="text" class="form-control  layui-anim layui-anim-up" id="loginacct" name="loginacct" placeholder="请输入登录账号" autofocus>
 			<span class="glyphicon glyphicon-user form-control-feedback"></span>
 		  </div> 
 		  <div class="form-group has-success has-feedback">
-			<input type="password" class="form-control" id="userpswd" name="userpswd" value="123456" placeholder="请输入登录密码" style="margin-top:10px;">
+			<input type="text" class="form-control" id="userpswd" name="userpswd" placeholder="请输入登录密码" style="margin-top:10px;">
 			<span class="glyphicon glyphicon-lock form-control-feedback"></span>
 		  </div>
+		  
+		  <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
+		  
+		  	<input type="text" class="layui-input layui-icon layui-icon-date autofocus" id="test1" name="date" placeholder="请选择登陆日期">
+		  	<span><i class="layui-icon layui-icon-date"></i></span>
+		  	<i class="layui-icon layui-icon-face-smile" style="font-size: 30px; color: #1E9FFF;"></i> 
+		  </div>
+		  
         <div class="checkbox">
           <label>
-            <input type="checkbox" name="remember-me"> 记住我
+            <input type="checkbox" value="remember-me"> 记住我
           </label>
           <br>
           <label>
@@ -64,18 +67,18 @@
     <%@ include file="/WEB-INF/jsp/common/js.jsp" %>
     <script>
     function dologin() {
-    	var loginacct = $("#loginacct").val();
-    	
-    	if($.trim(loginacct)==""){
-    		
-    		layer.msg("用户名称不能为空,请输入!",{time:2000,icon:5});
-    		
-    		return false ;
-    	}
-    	
-    	
        $("#loginForm").submit();
     }
     </script>
+    
+    <script>
+		layui.use('laydate', function(){
+		  var laydate = layui.laydate;
+		  //执行一个laydate实例
+		  laydate.render({
+		    elem: '#test1' //指定元素
+		  });
+		});
+	</script>
   </body>
 </html>

@@ -19,4 +19,12 @@ public interface TPermissionService {
 	List<TPermission> getPermissionByMenuid(Integer mid);
 
 	void assignPermissionToMenu(Integer mid, List<Integer> perIdArray);
+
+    List<TPermission> listPermissionAllTree();
+
+	TPermission selectPermissionById(Integer id);
+
+	void updatePermission(TPermission per);
+
+	void deletePermissionById(Integer id);
 }

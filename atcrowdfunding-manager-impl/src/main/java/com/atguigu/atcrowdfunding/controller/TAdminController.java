@@ -3,12 +3,11 @@ package com.atguigu.atcrowdfunding.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,48 +18,81 @@ import com.atguigu.atcrowdfunding.bean.TAdmin;
 import com.atguigu.atcrowdfunding.bean.TRole;
 import com.atguigu.atcrowdfunding.service.TAdminService;
 import com.atguigu.atcrowdfunding.service.TRoleService;
+import com.atguigu.atcrowdfunding.service.impl.TAdminServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 @Controller
 public class TAdminController {
-
-	@Autowired
-	TAdminService adminService ;
-	
-	@Autowired
-	TRoleService roleService ;
 	
 	Logger log = LoggerFactory.getLogger(TAdminController.class);
 	
+	@Autowired
+	TAdminService adminService;
 	
-	@ResponseBody
-	@RequestMapping("/admin/doUnAssign") 
-	public String doUnAssign(Integer[] roleId,Integer adminId) {
+	@Autowired
+	TRoleService roleService;
+	
+	@RequestMapping("/admin/index")
+	public String index(@RequestParam(value="pageNum",required=false,defaultValue="1") Integer pageNum,
+						@RequestParam(value="pageSize",required=false,defaultValue="2") Integer pageSize,
+						Model model,
+						@RequestParam(value="condition",required=false,defaultValue="") String condition) {
+		PageHelper.startPage(pageNum,pageSize);
 		
-		log.debug("adminId={}",adminId);
-		for (Integer rId : roleId) {
-			log.debug("roleId={}",rId);
-		}
+		HashMap<String, Object> paramMap = new HashMap<String,Object>();
+		paramMap.put("condition", condition);
 		
-		roleService.deleteAdminAndRoleRelationship(roleId,adminId);
-
-		return "ok";
+		PageInfo<TAdmin> page = adminService.listAdminPage(paramMap);
+		
+		model.addAttribute("page",page);
+		return "admin/index";
 	}
 	
-	//"id=5&id=7&id=8&adminId=1"
-	@ResponseBody
-	@RequestMapping("/admin/doAssign") 
-	public String doAssign(Integer[] roleId,Integer adminId) {
-		
-		log.debug("adminId={}",adminId);
-		for (Integer rId : roleId) {
-			log.debug("roleId={}",rId);
+	@RequestMapping("/admin/toAdd")
+	public String toAdd() {
+		return "admin/add";
+	}
+	
+//	@PreAuthorize("hasRole('程序员')")
+	@RequestMapping("/admin/doAdd")
+	public String doAdd(TAdmin admin) {
+		adminService.saveTAdmin(admin);
+		return "redirect:/admin/index?pageNum="+Integer.MAX_VALUE;
+	}
+	
+	@RequestMapping("/admin/toUpdate")
+	public String toUpdate(Integer id,Model model,Integer pageNum) {
+//		Logger log = LoggerFactory.getLogger(TAdminServiceImpl.class);
+		log.debug("pageNum{},---{}",pageNum,id);
+		TAdmin admin = adminService.getTAdminById(id);
+		System.out.println(admin+"-----------------------------");
+		model.addAttribute("admin",admin);
+		return "admin/update";
+	}
+	
+	@RequestMapping("/admin/doUpdate")
+	public String doUpdate(TAdmin admin) {
+		adminService.updateTAdmin(admin);
+		return "redirect:/admin/index?pageNum="+Integer.MAX_VALUE;
+	}
+	
+	@RequestMapping("/admin/doDelete")
+	public String deleteTAdmin(Integer id,Integer pageNum) {
+		adminService.deleteTAdmin(id);
+		return "redirect:/admin/index?pageNum="+pageNum;
+	}
+	
+	@RequestMapping("/admin/doDeleteBatch")
+	public String delete(String ids,Integer pageNum) {
+		List<Integer> idList = new ArrayList<Integer>();
+		String[] split = ids.split(",");
+		for (String idStr : split) {
+			int id = Integer.parseInt(idStr);
+			idList.add(id);
 		}
-		
-		roleService.saveAdminAndRoleRelationship(roleId,adminId);
-
-		return "ok";
+		adminService.deleteBatch(idList);
+		return "redirect:/admin/index?pageNum="+pageNum;
 	}
 	
 	@RequestMapping("/admin/toAssign") 
@@ -91,88 +123,26 @@ public class TAdminController {
 		return "admin/assignRole";
 	}
 	
-	@RequestMapping("/admin/doDeleteBatch") //   ids = "1,2,3,4,5";
-	public String doDelete(String ids,Integer pageNum) {
-		List<Integer> idList = new ArrayList<Integer>();
+	@ResponseBody
+	@RequestMapping("/admin/doAssign")
+	public String doAssign(Integer[] roleId,Integer adminId) {
+		//void saveAdminAndRoleRelationship(@Param("roleId") Integer[] roleId, @Param("adminId") Integer adminId);
+		log.debug("adminId={}",adminId.TYPE);
 		
-		String[] split = ids.split(",");
-		
-		for (String idStr : split) {
-			int id = Integer.parseInt(idStr);
-			idList.add(id);
+		for (Integer rId : roleId) {
+			log.error("roleId={}",rId.TYPE);
 		}
 		
-		adminService.deleteBatch(idList);
-		
-		
-		return "redirect:/admin/index?pageNum="+pageNum;
+		roleService.saveAdminAndRoleRelationship(roleId,adminId);
+		return "ok";
 	}
 	
-	@RequestMapping("/admin/doDelete")
-	public String doDelete(Integer id,Integer pageNum) {
-		
-		adminService.deleteTAdmin(id);
-		
-		return "redirect:/admin/index?pageNum="+pageNum;
+	@ResponseBody
+	@RequestMapping("/admin/doUnAssign")
+	public String doUnAssign(Integer[] roleId,Integer adminId) {
+		roleService.deleteAdminAndRoleRelationship(roleId,adminId);
+		return "ok";
 	}
 	
-	@RequestMapping("/admin/doUpdate")
-	public String doUpdate(TAdmin admin,Integer pageNum) {
-		
-		adminService.updateTAdmin(admin);
-		
-		return "redirect:/admin/index?pageNum="+pageNum;
-	}
-	
-	
-	@RequestMapping("/admin/toUpdate")
-	public String toUpdate(Integer id,Model model) {
-		
-		TAdmin admin = adminService.getTAdminById(id);
-		model.addAttribute("admin", admin);
-		
-		return "admin/update";
-	}
-	
-	
-	@PreAuthorize("hasRole('PM - 项目经理')")
-	@RequestMapping("/admin/doAdd")
-	public String doAdd(TAdmin admin) {
-		
-		adminService.saveTAdmin(admin);
-		
-		//return "redirect:/admin/index";
-		return "redirect:/admin/index?pageNum="+Integer.MAX_VALUE;
-	}
-	
-	@RequestMapping("/admin/toAdd")
-	public String toAdd() {
-		
-		return "admin/add";
-	}
-	
-	
-	
-	@RequestMapping("/admin/index")
-	public String index(@RequestParam(value="pageNum",required=false,defaultValue="1") Integer pageNum,
-						@RequestParam(value="pageSize",required=false,defaultValue="2") Integer pageSize,
-						Model model,
-						@RequestParam(value="condition",required=false,defaultValue="") String condition) {
-		
-		log.debug("pageNum={}",pageNum);
-		log.debug("pageSize={}",pageSize);
-		log.debug("condition={}",condition);
-
-		PageHelper.startPage(pageNum, pageSize);  //线程绑定
-		
-		Map<String,Object> paramMap = new HashMap<String,Object>();
-		paramMap.put("condition", condition);
-		
-		PageInfo<TAdmin> page = adminService.listAdminPage(paramMap);
-		
-		model.addAttribute("page", page);
-		
-		return "admin/index";
-	}
 	
 }

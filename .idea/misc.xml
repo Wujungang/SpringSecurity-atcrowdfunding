@@ -16,7 +16,6 @@
         <option value="$PROJECT_DIR$/atcrowdfundingcommon/pom.xml" />
         <option value="$PROJECT_DIR$/atcrowdfundingbean/pom.xml" />
         <option value="$PROJECT_DIR$/atcrowdfunding-parent/pom.xml" />
-        <option value="$PROJECT_DIR$/atcrowdfunding-manager-impl/pom.xml" />
       </list>
     </option>
   </component>

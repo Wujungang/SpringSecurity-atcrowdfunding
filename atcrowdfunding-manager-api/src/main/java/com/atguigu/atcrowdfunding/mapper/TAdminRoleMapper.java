@@ -31,4 +31,7 @@ public interface TAdminRoleMapper {
 	List<Integer> getRoleIdByAdminId(String id);
 
 	void deleteAdminAndRoleRelationship(@Param("roleId") Integer[] roleId, @Param("adminId") Integer adminId);
+
+    void saveAdminAndRoleRelationship(@Param("roleIds") Integer[] roleId, @Param("adminId") Integer adminId);
+
 }

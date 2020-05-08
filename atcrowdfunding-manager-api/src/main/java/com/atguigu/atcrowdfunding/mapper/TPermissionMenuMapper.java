@@ -32,4 +32,7 @@ public interface TPermissionMenuMapper {
 
 	void saveMenuAndPermissionRelationship(@Param("menuId") Integer menuId, @Param("ids") List<Integer> ids);
 	//void saveRoleAndPermissionRelationship(@Param("roleId") Integer roleId,@Param("ids") List<Integer> ids);
+
+    void insertBatch(@Param("mid") Integer mid,@Param("perIdArray") List<Integer> perIdArray);
+
 }

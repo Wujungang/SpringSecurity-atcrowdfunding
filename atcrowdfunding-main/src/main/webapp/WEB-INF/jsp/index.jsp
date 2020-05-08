@@ -1,18 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="zh_CN">
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    
-    <!-- 前台路径，由浏览器发起请求路径。 -->
-	<%@ include file="/WEB-INF/jsp/common/css.jsp" %> <!-- 静态包含 ： 最终生成一个class-->
-	
-	<%-- <jsp:include page="/WEB-INF/jsp/common/css.jsp"></jsp:include> --%> <!-- 动态包含: 最终生成2个class -->
+	<%@ include file="/WEB-INF/jsp/common/css.jsp" %>
 	<style>
     h3 {
         font-weight:bold;
@@ -302,7 +298,7 @@ h3.break>a {
 			<div class="row">
 				<div class="col-md-3">
 					<div class="thumbnail">
-						<img alt="300x200" src="${PATH}/static/img/product-1.jpg" />
+						<img alt="300x200" src="${PATH}/static/img/product-5.jpg" />
 						<div class="caption">
 							<h3 class="break">
 								<a href="project.html">活性富氢净水直饮机</a>
@@ -323,7 +319,7 @@ h3.break>a {
 				</div>
 				<div class="col-md-3">
 					<div class="thumbnail">
-						<img alt="300x200" src="${PATH}/static/img/product-2.gif" />
+						<img alt="300x200" src="${PATH}/static/img/product-6.jpg" />
 						<div class="caption">
 							<h3 class="break">
 								<a href="project.html">酷驰触控龙头，智享厨房黑科技</a>
@@ -344,7 +340,7 @@ h3.break>a {
 				</div>
 				<div class="col-md-3">
 					<div class="thumbnail">
-						<img alt="300x200" src="${PATH}/static/img/product-3.png" />
+						<img alt="300x200" src="${PATH}/static/img/product-7.jpg" />
 						<div class="caption">
 							<h3 class="break">
 								<a href="project.html">小熊猫鱼眼全景安防摄像机</a>
@@ -365,7 +361,7 @@ h3.break>a {
 				</div>
 				<div class="col-md-3">
 					<div class="thumbnail">
-						<img alt="300x200" src="${PATH}/static/img/product-4.jpg" />
+						<img alt="300x200" src="${PATH}/static/img/product-8.jpg" />
 						<div class="caption">
 							<h3 class="break">
 								<a href="project.html">一款精致的机械表</a>
@@ -408,7 +404,7 @@ h3.break>a {
 			<div class="row">
 				<div class="col-md-3">
 					<div class="thumbnail">
-						<img alt="300x200" src="${PATH}/static/img/product-1.jpg" />
+						<img alt="300x200" src="${PATH}/static/img/product-9.jpg" />
 						<div class="caption">
 							<h3 class="break">
 								<a href="project.html">活性富氢净水直饮机</a>
@@ -496,7 +492,7 @@ h3.break>a {
 			
 		</div>
 	</div>
-</div>
+</div> 
 
  <div class="container">
 	<div class="row clearfix">
@@ -602,16 +598,14 @@ h3.break>a {
 			
 		</div>
 	</div>
-</div>
+</div> 
       
-<%@ include file="/WEB-INF/jsp/common/footer.jsp" %> 
 
+	<%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
     </div><!-- /.container -->
 
-
-
-    
-    <%@ include file="/WEB-INF/jsp/common/js.jsp" %> 
+	
+    <%@ include file="/WEB-INF/jsp/common/js.jsp" %>
     <script>
     $(".thumbnail img").css("cursor", "pointer");
     $(".thumbnail img").click(function(){

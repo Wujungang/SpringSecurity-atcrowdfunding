@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
@@ -44,10 +43,7 @@
   <button id="queryBtn" type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
 </form>
 <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
-
-<security:authorize access="hasRole('PM - 项目经理')">
 <button id="addBtn" type="button" class="btn btn-primary" style="float:right;" ><i class="glyphicon glyphicon-plus"></i> 新增</button>
-</security:authorize>
 <br>
  <hr style="clear:both;">
           <div class="table-responsive">
@@ -322,8 +318,8 @@
         						$("#addModal input[name='name']").val("");
         						initData(1); //添加后初始化第一页，倒序排序。
         					});
-        				}else if("403"==result){
-        					layer.msg("您无权访问该功能!");
+        				}else if("403" == result){
+        					layer.msg("对不起,您没有添加角色的权限");
         				}else{
         					layer.msg("保存失败");
         				}
@@ -455,7 +451,7 @@
         		//多个异步请求，执行先后顺序问题。
         		
         		//1.加载数据
-        		$.get("${PATH}/permission/listAllPermissionTree",function(data){			
+        		$.get("${PATH}/permission/loadTree",function(data){			
         			//data.push({"id":0,"title":"系统权限","icon":"glyphicon glyphicon-asterisk"});
         			
         			var treeObj = $.fn.zTree.init($("#treeDemo"), setting, data);
@@ -472,9 +468,6 @@
             			});
             		}); 
         		}); 
-        		
-        		
-
         	}
         		
         	$("#assignBtn").click(function(){

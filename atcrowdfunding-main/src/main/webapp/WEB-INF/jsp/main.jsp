@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="zh_CN">
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,8 +26,8 @@
   </head>
 
   <body>
-
-    <jsp:include page="/WEB-INF/jsp/common/top.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/common/top.jsp"></jsp:include>
+    
     <div class="container-fluid">
       <div class="row">
         <jsp:include page="/WEB-INF/jsp/common/sidebar.jsp"></jsp:include>
@@ -58,7 +59,7 @@
         </div>
       </div>
     </div>
-<%@ include file="/WEB-INF/jsp/common/js.jsp" %>
+    <%@ include file="/WEB-INF/jsp/common/js.jsp" %>
         <script type="text/javascript">
             $(function () {
 			    $(".list-group-item").click(function(){
@@ -72,7 +73,20 @@
 					}
 				});
             });
+            
+            $(".deleteBtnClass").click(function(){
+            	
+            	var id = $(this).attr("adminId");
+            	
+            	layer.confirm('您是否确定删除该条数据?',{btn:['确定','取消']},function(index){
+            	
+            	window.location.href="${PATH}/admin/doDelete?pageNum=${page.pageNum}&id="+id;
+            	
+            	layer.close(index);
+            	},function(index){
+            		layer.close(index);
+            	});
+            }); 
         </script>
   </body>
 </html>
-    

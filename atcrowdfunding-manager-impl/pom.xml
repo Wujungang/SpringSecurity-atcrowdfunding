@@ -2,32 +2,29 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>atcrowdfunding-parent</artifactId>
+        <groupId>com.atguigu.atcrowdfunding</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../atcrowdfunding-parent/pom.xml</relativePath>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.atguigu.atcrowdfunding</groupId>
     <artifactId>atcrowdfunding-manager-impl</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-
-    <name>atcrowdfunding-manager-impl</name>
-    <description>存放实现类：controller,serviceImpl,XML映射配置等</description>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>6</source>
+                    <target>6</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencies>
-        <dependency>
-            <groupId>com.atguigu.atcrowdfunding</groupId>
-            <artifactId>atcrowdfunding-manager-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.atguigu.atcrowdfunding</groupId>
-            <artifactId>atcrowdfunding-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.atguigu.atcrowdfunding</groupId>
-            <artifactId>atcrowdfunding-bean</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-
 
         <!-- 业务层需要的所有框架 -->
         <!--公共依赖结束 -->
@@ -71,6 +68,22 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <!-- 目标环境已经有了 -->
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
         </dependency>
 
         <!-- 基础框架 -->
@@ -168,19 +181,22 @@
 
 
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <!-- 目标环境已经有了 -->
-            <scope>provided</scope>
+            <groupId>com.atguigu.atcrowdfunding</groupId>
+            <artifactId>atcrowdfunding-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.atguigu.atcrowdfunding</groupId>
+            <artifactId>atcrowdfunding-manager-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
-
-    <parent>
-        <groupId>com.atguigu.atcrowdfunding</groupId>
-        <artifactId>atcrowdfunding-parent</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../atcrowdfunding-parent/pom.xml</relativePath>
-    </parent>
 
 
 </project>
