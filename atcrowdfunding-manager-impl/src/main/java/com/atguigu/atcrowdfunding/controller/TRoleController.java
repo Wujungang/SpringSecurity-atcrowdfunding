@@ -56,8 +56,8 @@ public class TRoleController {
 		PageInfo<TRole> page = roleService.listRolePage(paramMap);
 		return page;
 	}
-	
-	@PreAuthorize("hasRole('程序员')")
+
+	@PreAuthorize("hasRole('PG - 程序员')")
 	@ResponseBody
 	@RequestMapping("/role/doAdd")
 	public String doAdd(TRole role) {
@@ -77,7 +77,8 @@ public class TRoleController {
 		roleService.updateTRole(role);
 		return "ok";
 	}
-	
+
+	@PreAuthorize("hasRole('PG - 程序员')")
 	@ResponseBody
 	@RequestMapping("/role/doDelete")
 	public String doDelete(String id) {

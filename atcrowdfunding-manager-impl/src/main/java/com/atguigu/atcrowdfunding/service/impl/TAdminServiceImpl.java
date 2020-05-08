@@ -7,6 +7,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -77,6 +78,8 @@ public class TAdminServiceImpl implements TAdminService{
 		
 		return page;
 	}
+
+	@PreAuthorize("hasRole('PG - 程序员')")
 	@Override
 	public void saveTAdmin(TAdmin admin) {
 		// TODO Auto-generated method stub

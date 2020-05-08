@@ -10,8 +10,6 @@ public interface TRoleService {
 
 	PageInfo<TRole> listRolePage(Map<String, Object> paramMap);
 
-	void saveTRole(TRole role);
-
 	TRole getRoleById(Integer id);
 
 	void updateTRole(TRole role);
@@ -29,5 +27,7 @@ public interface TRoleService {
 	void saveRoleAndPermissionRelationship(Integer roleId, List<Integer> ids);
 
 	List<Integer> listPermissionIdByRoleId(Integer roleId);
+
+	void saveTRole(TRole role);
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,7 @@ public class TAdminController {
 		return "admin/add";
 	}
 	
-	@PreAuthorize("hasRole('程序员')")
+	@PreAuthorize("hasRole('PG - 程序员')")
 	@RequestMapping("/admin/doAdd")
 	public String doAdd(TAdmin admin) {
 		adminService.saveTAdmin(admin);
@@ -75,7 +76,8 @@ public class TAdminController {
 		adminService.updateTAdmin(admin);
 		return "redirect:/admin/index?pageNum="+Integer.MAX_VALUE;
 	}
-	
+
+	@PreAuthorize("hasRole(' PG - 程序员')")
 	@RequestMapping("/admin/doDelete")
 	public String deleteTAdmin(Integer id,Integer pageNum) {
 		adminService.deleteTAdmin(id);
@@ -125,7 +127,7 @@ public class TAdminController {
 	@ResponseBody
 	@RequestMapping("/admin/doAssign")
 	public String doAssign(Integer[] roleId,Integer adminId) {
-		//void saveAdminAndRoleRelationship(@Param("roleId") Integer[] roleId, @Param("adminId") Integer adminId);
+//		void saveAdminAndRoleRelationship(@Param("roleId") Integer[] roleId, @Param("adminId") Integer adminId);
 		log.debug("adminId={}",adminId.TYPE);
 		
 		for (Integer rId : roleId) {

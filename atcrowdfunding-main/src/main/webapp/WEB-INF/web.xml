@@ -63,7 +63,7 @@
 
 
 
-  <!-- 核心控制器 -->
+  <!-- 核心控制器 干掉了spring容器，只保存了springmvc容器，将spring配置文件放在了springmvc内-->
   <servlet>
     <servlet-name>springDispatcherServlet</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>

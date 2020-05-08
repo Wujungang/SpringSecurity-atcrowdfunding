@@ -34,7 +34,7 @@
 			  </div> 
 		  </c:if>
 		  <div class="form-group has-success has-feedback">
-			<input type="text" class="form-control  layui-anim layui-anim-up" id="loginacct" value="aaa" name="loginacct" placeholder="请输入登录账号" autofocus>
+			<input type="text" class="form-control  layui-anim layui-anim-up" id="loginacct" value="aaaa" name="loginacct" placeholder="请输入登录账号" autofocus>
 			<span class="glyphicon glyphicon-user form-control-feedback"></span>
 		  </div> 
 		  <div class="form-group has-success has-feedback">

@@ -47,15 +47,15 @@ public class SecurityUserDetailServiceImpl implements UserDetailsService{
 			TAdmin admin = list.get(0);
 			Integer adminId = admin.getId();
 			
-			log.debug("用户信息:{}",admin);
+			log.error("用户信息3:{}",admin);
 			
 			List<TRole> roleList = roleMapper.listRoleByAdminId(adminId);
 			
-			log.debug("用户角色集合:{}",roleList);
+			log.error("用户角色集合2:{}",roleList);
 			
 			List<TPermission> permissionList = permissionMapper.listpermissionByAdminId(adminId);
 			
-			log.debug("用户权限集合:{}",permissionList);
+			log.error("用户权限集合1:{}",permissionList);
 			
 			Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
 			
@@ -66,9 +66,10 @@ public class SecurityUserDetailServiceImpl implements UserDetailsService{
 			for (TPermission permission : permissionList) {
 				authorities.add(new SimpleGrantedAuthority(permission.getName()));
 			}
-			
-			log.debug("用户总权限集合:{}",authorities);
-			
+
+			log.error("用户总权限集合:{}",authorities);
+			log.error("**************");
+
 			return new TSecurityAdmin(admin, authorities);
 		}
 		return null;

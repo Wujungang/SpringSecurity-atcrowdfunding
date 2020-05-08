@@ -3,6 +3,7 @@ package com.atguigu.atcrowdfunding.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import com.atguigu.atcrowdfunding.mapper.TAdminMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,9 @@ public class TRoleServiceImpl implements TRoleService {
 
 	@Autowired
 	TAdminRoleMapper adminRoleMapper;
+
+	@Autowired
+	TAdminMapper adminMapper;
 
 	@Autowired
 	TRolePermissionMapper rolePermissionMapper;
@@ -51,7 +55,7 @@ public class TRoleServiceImpl implements TRoleService {
 		return page;
 	}
 
-	//@PreAuthorize("hasRole('PM - 项目经理')")
+
 	@Override
 	public void saveTRole(TRole role) {
 		roleMapper.insertSelective(role);
@@ -86,7 +90,8 @@ public class TRoleServiceImpl implements TRoleService {
 
 	@Override
 	public void saveAdminAndRoleRelationship(Integer[] roleId, Integer adminId) {
-		adminRoleMapper.saveAdminAndRoleRelationship(roleId,adminId);
+//		adminRoleMapper.saveAdminAndRoleRelationship(roleId,adminId);
+		adminMapper.saveAdminAndRoleRelationship(roleId,adminId);
 	}
 
 	@Override
