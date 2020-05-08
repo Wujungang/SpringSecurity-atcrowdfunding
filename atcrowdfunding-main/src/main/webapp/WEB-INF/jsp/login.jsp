@@ -26,7 +26,7 @@
 
     <div class="container ">
 
-      <form id="loginForm" class="form-signin" role="form" action="${PATH }/doLogin" method="post">
+      <form id="loginForm" class="form-signin" role="form" action="${PATH }/login" method="post">
         <h2 class="form-signin-heading"><i class="glyphicon glyphicon-log-in"></i> 用户登录</h2>
 	       	<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
 	       	  <div class="form-group has-success has-feedback" >

@@ -79,31 +79,31 @@ public class DispatcherController {
 //	}
 
 
-	@RequestMapping("/doLogin")
-	public String doLogin(String loginacct, String userpswd, HttpSession session, Model model) {
-		log.debug("开始登录...");
-
-		log.debug("loginacct={}",loginacct);
-		log.debug("userpswd={}",userpswd);
-
-
-		Map<String,Object> paramMap = new HashMap<String,Object>();
-		paramMap.put("loginacct", loginacct);
-		paramMap.put("userpswd", userpswd);
-
-		try {
-//			TAdmin admin = adminService.getTAdminByLogin(paramMap);
-//			session.setAttribute(Const.LOGIN_ADMIN, admin);
-			log.debug("登录成功...");
-			//return "main"; //避免表单重复提交，采用重定向
-			return "redirect:/main";
-		} catch (Exception e) {
-			e.printStackTrace();
-			log.debug("登录失败={}...",e.getMessage());
-			model.addAttribute("message",e.getMessage());
-			return "login";
-		}
-	}
+//	@RequestMapping("/doLogin")
+//	public String doLogin(String loginacct, String userpswd, HttpSession session, Model model) {
+//		log.debug("开始登录...");
+//
+//		log.debug("loginacct={}",loginacct);
+//		log.debug("userpswd={}",userpswd);
+//
+//
+//		Map<String,Object> paramMap = new HashMap<String,Object>();
+//		paramMap.put("loginacct", loginacct);
+//		paramMap.put("userpswd", userpswd);
+//
+//		try {
+////			TAdmin admin = adminService.getTAdminByLogin(paramMap);
+////			session.setAttribute(Const.LOGIN_ADMIN, admin);
+//			log.debug("登录成功...");
+//			//return "main"; //避免表单重复提交，采用重定向
+//			return "redirect:/main";
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			log.debug("登录失败={}...",e.getMessage());
+//			model.addAttribute("message",e.getMessage());
+//			return "login";
+//		}
+//	}
 
 
 }

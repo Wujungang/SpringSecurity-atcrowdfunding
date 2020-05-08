@@ -7,7 +7,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +18,6 @@ import com.atguigu.atcrowdfunding.bean.TAdmin;
 import com.atguigu.atcrowdfunding.bean.TRole;
 import com.atguigu.atcrowdfunding.service.TAdminService;
 import com.atguigu.atcrowdfunding.service.TRoleService;
-import com.atguigu.atcrowdfunding.service.impl.TAdminServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -54,7 +53,7 @@ public class TAdminController {
 		return "admin/add";
 	}
 	
-//	@PreAuthorize("hasRole('程序员')")
+	@PreAuthorize("hasRole('程序员')")
 	@RequestMapping("/admin/doAdd")
 	public String doAdd(TAdmin admin) {
 		adminService.saveTAdmin(admin);
