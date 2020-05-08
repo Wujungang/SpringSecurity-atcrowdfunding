@@ -45,9 +45,6 @@ public class TAdminServiceImpl implements TAdminService{
 		TAdmin admin = list.get(0);
 		String pswd = admin.getUserpswd();
 		log.error(pswd);
-		if (!admin.getUserpswd().equals(MD5Util.digest(userpswd))) {
-			throw new LoginException(Const.LOGIN_USERPSWD_ERROR);
-		}
 		return admin;
 	}
 

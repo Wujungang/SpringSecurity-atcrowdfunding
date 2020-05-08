@@ -41,8 +41,6 @@ public class TRoleController {
 		return "role/index";
 	}
 	
-	
-
 
 	@ResponseBody
 	@RequestMapping("/role/loadData")
@@ -56,7 +54,6 @@ public class TRoleController {
 		paramMap.put("condition", condition);
 		
 		PageInfo<TRole> page = roleService.listRolePage(paramMap);
-		
 		return page;
 	}
 	
@@ -84,7 +81,7 @@ public class TRoleController {
 	@ResponseBody
 	@RequestMapping("/role/doDelete")
 	public String doDelete(String id) {
-//		roleService.deleteById(id);
+		roleService.deleteTRole(Integer.parseInt(id));
 		return "ok";
 	}
 	
